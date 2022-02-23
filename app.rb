@@ -7,6 +7,8 @@ player_2_ships = [Ship.new(4), Ship.new(3)]
 player_1_board = Board.new
 player_2_board = Board.new
 
+# Welcome to battleship
+# ask user which player 1 or player 2
 
 # Try to add the first ship on the board
 
@@ -23,6 +25,8 @@ puts "2 - Vertical"
 print "> "
 direction = gets.chomp.to_i
 ship.starting_coordinate = (direction == 1 ? "horizontal" : "vertical")
+
+# Try to add the second ship on the board
 
 # Then tried to add to his board
 player_1_board.add_ship(ship)
