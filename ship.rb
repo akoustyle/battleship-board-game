@@ -19,5 +19,7 @@ class Ship
 		@fill_char.colorize(:light_blue)
 	end
 end
+
+
 ship = Ship.new(4)
-ship.hits
+ puts ship.hits
