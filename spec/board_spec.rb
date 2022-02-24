@@ -27,15 +27,20 @@ RSpec.describe 'Board' do
 
 end
 
+  case type
+      when "battleship"
+        then @battleship = Ship.new(type: type, length: length, x: x, y: y, orientation: orientation)
+      when "warship"
+        then @warship = Ship.new(type: type, length: length, x: x, y: y, orientation: orientation)
+    end
 
 #testing
 RSpec.describe Board do
   subject(:pc) do
-    ship1 = ship(origin: [0, 0])
-    ship2 = ship(origin: [1, 2])
-    ship3 = ship(origin: [0, 4])
+    ship1 = ship(origin: [0, 3])
+    ship2 = ship(origin: [0, 2])
 
-    Battlefield.new(ship1, ship2, ship3)
+    Battlefield.new(ship1, ship2)
   end
 
   it 'can be instantiated with ship locations' do
@@ -44,12 +49,10 @@ RSpec.describe Board do
 
   it 'can render itself' do
     expected_render = "hey"
-    result = battlefield.render
+    new_board = Board.new
+    new_board.generate_blank_board
 
-    result.each do |row|
-      puts row.join(' ')
-    end
-    expect(battlefield.render).to eq expected_render
+    expect(new_board.generate_blank_board).to eq expected_render
   end
 
   describe 'overlapping ships' do
