@@ -28,6 +28,19 @@ def setup_game
   player2_board.player_view = player2_board.generate_blank_board
   player2_board.display_board
   $message << "Setup complete! Let's play! "
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
   message
   $setup = false
   return player2_board, player_board
@@ -40,6 +53,19 @@ def flip_to_see_who_goes_first
 end
 
 def player_turn (player2_board, player_board)
+    puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
   $message << "Player turn! "
   hit = true # to get into the while loop
   # continue as long as player is hitting
@@ -62,6 +88,19 @@ def player_turn (player2_board, player_board)
 end
 
 def player2_turn (player2_board, player_board)
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
   $message << "Player2 turn! "
   hit = true # to get into the while loop
   # continue as long as player is hitting
@@ -120,7 +159,7 @@ def play_game
 end
 
 def report_and_prompt(player2_board, player_board)
-  $winner == "player" ? player_board.show_player_view_of_player :
-    player2_board.show_player_view
+  $winner == "player" ? player2_board.show_player_view_of_player :
+    player_board.show_player_view
   puts "The winner of this round is the #{$winner}!"
 end

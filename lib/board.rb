@@ -213,6 +213,19 @@ end
 class Player2Board < Board
 
   def initialize (pc)
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
     puts "Generating Player2's board."
     super
     self.pc = "player2" # is there a way to avoid this??
