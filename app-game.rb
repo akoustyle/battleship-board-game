@@ -3,9 +3,9 @@
 
 require "./lib/board.rb"
 require "./lib/ship.rb"
-# require "./lib/player_board"
-# require "./lib/player2_board"
-# require "./lib/input"
+require "./lib/player_board"
+require "./lib/player2_board"
+require "./lib/input"
 
 # This is called just after displaying a board, so that messages appear
 # below the board instead of above them.

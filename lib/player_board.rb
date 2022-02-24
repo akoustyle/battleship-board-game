@@ -1,3 +1,6 @@
+require_relative './input'
+require_relative './ship'
+
 class PlayerBoard < Board
   def initialize (pc)
     super
@@ -101,13 +104,13 @@ class PlayerBoard < Board
 
 
   # pretty-prints a table of the point values
-  def print_value_table(points_hash)
-    5.times do |y|
-      5.times do |x|
-        print format("%3i ",points_hash[[y,x]])
-      end
-      print "\n"
-    end
-  end
+  # def print_value_table(points_hash)
+  #   5.times do |y|
+  #     5.times do |x|
+  #       print format("%3i ",points_hash[[y,x]])
+  #     end
+  #     print "\n"
+  #   end
+  # end
 
 end
