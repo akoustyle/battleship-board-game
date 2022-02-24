@@ -4,7 +4,7 @@ require_relative '../models/board'
 
 RSpec.describe 'Board' do
   before do
-    @board = Board.new
+    @board = Board.new(option)
   end
 
   describe 'generate_blank_board' do

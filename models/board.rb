@@ -74,7 +74,7 @@ class Board
     x = 0
     y = 0
     valid_start = false
-    message << "#{self.pc} attack! " unless setup == true
+    $message << "#{self.pc} attack! " unless $setup == true
     until valid_start
       if type[0]
         puts "Where do you want the top/left edge of your #{type[0]}? "
@@ -123,13 +123,13 @@ class Board
   def report_if_sunk(ship_type)
     case ship_type
     when 'B'
-      then message << "Battleship sunk! " if self.battleship.points.values.all? {|x| x == '#'}
+      then $message << "Battleship sunk! " if self.battleship.points.values.all? {|x| x == '#'}
       return true if self.battleship.points.values.all? {|x| x == '#'}
     when 'W'
-      then message << "Warship sunk! " if self.warship.points.values.all? {|x| x == '#'}
+      then $message << "Warship sunk! " if self.warship.points.values.all? {|x| x == '#'}
       return true if self.warship.points.values.all? {|x| x == '#'}
     end
-    message << "Not sunk yet. "
+    $message << "Not sunk yet. "
     return false
   end
 
@@ -160,9 +160,9 @@ class Board
       when "player2"
         then $winner = "player"
       end
-      message << "We have a winner! "
+      $message << "We have a winner! "
     else
-      message << "No winner yet. "
+      $message << "No winner yet. "
     end
   end
 
@@ -177,15 +177,15 @@ class Board
     ship_type = board[y][x]
     hit = false
     x_human, y_human = compu_coords_to_human_coords(x,y)
-    message << "Trying #{x_human}#{y_human}. "
+    $message << "Trying #{x_human}#{y_human}. "
     # edit player_view based on hit/miss
     case board[y][x]
       when '.'
-        then message << "\nMISS! "
+        then $message << "\nMISS! "
         player_view[y][x] = 'x'
         board[y][x] = 'x'
       when 'B', 'W'
-        then message << "\nHIT! "
+        then $message << "\nHIT! "
         hit = true
         player_view[y][x] = '#'
         # This overwrites the board but ship coords are in ship object
@@ -199,7 +199,7 @@ class Board
         change_to_letters(ship_type) if sunk == true
         determine_if_game_over if sunk == true
       else
-        message << "Invalid coordinates: #{x_human}#{y_human}. "
+        $message << "Invalid coordinates: #{x_human}#{y_human}. "
         show_player_view
         return hit, false # ship not sunk, and coordinates were bad
     end
@@ -209,352 +209,223 @@ class Board
 
 end
 
-# class Player2Board < Board
+class Player2Board < Board
 
-#   def initialize (pc)
-#   puts "|"
-#   puts "|"
-#   puts "|"
-#   puts "|"
-#   puts "|"
-#   puts "|"
-#   puts "|"
-#   puts "|"
-#   puts "|"
-#   puts "|"
-#   puts "|"
-#   puts "|"
-#   puts "|"
-#     puts "Generating Player2's board."
-#     super
-#     self.pc = "player2" # is there a way to avoid this??
-#     place(4, "battleship")
-#     place(3, "warship")
-#   end
+  def initialize (pc)
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+    puts "Generating Player2's board."
+    super
+    self.pc = "player2" # is there a way to avoid this??
+    place(4, "battleship")
+    place(3, "warship")
+  end
 
-#   def test_legality_of_x_and_y(x, y, length, type, orientation, position_found)
-#     if orientation == 0 # horizontal
-#       pass = true
-#       # iterate "length" times, checking each position as you go
-#       length.times do |n|
-#         begin # wrap to catch off-board exceptions
-#           # check if position already occupied
-#           unless self.board[y+n][x] == "."
-#             pass = false
-#             puts "That position is invalid."
-#           end
-#         rescue NoMethodError
-#           pass = false
-#           puts "Error. That position is invalid."
-#           break
-#         end
-#         break unless pass
-#       end
-#       if pass == true
-#         position_found = true
-#       end
-#     else # vertical
-#       pass = true
-#       # iterate "length" times, checking each position as you go
-#       length.times do |n|
-#         begin # wrap to catch off-board exceptions
-#           # check if position already occupied
-#           unless self.board[y][x+n] == "."
-#             pass = false
-#             puts "That position is invalid."
-#           end
-#         rescue NoMethodError
-#           pass = false
-#           puts "That position is invalid."
-#           break
-#         end
-#         break unless pass
-#       end
-#       if pass == true
-#         position_found = true
-#       end
-#     end
-#     return x, y, position_found
-#   end
+  def test_legality_of_x_and_y(x, y, length, type, orientation, position_found)
+    if orientation == 0 # horizontal
+      pass = true
+      # iterate "length" times, checking each position as you go
+      length.times do |n|
+        begin # wrap to catch off-board exceptions
+          # check if position already occupied
+          unless self.board[y+n][x] == "."
+            pass = false
+            puts "That position is invalid."
+          end
+        rescue NoMethodError
+          pass = false
+          puts "Error. That position is invalid."
+          break
+        end
+        break unless pass
+      end
+      if pass == true
+        position_found = true
+      end
+    else # vertical
+      pass = true
+      # iterate "length" times, checking each position as you go
+      length.times do |n|
+        begin # wrap to catch off-board exceptions
+          # check if position already occupied
+          unless self.board[y][x+n] == "."
+            pass = false
+            puts "That position is invalid."
+          end
+        rescue NoMethodError
+          pass = false
+          puts "That position is invalid."
+          break
+        end
+        break unless pass
+      end
+      if pass == true
+        position_found = true
+      end
+    end
+    return x, y, position_found
+  end
 
-#   def place(length, type)
-#     self.display_board unless $testing
-#     message unless $testing
-#     position_found = false
-#     orientation = nil
-#     valid_orientation = false
+  def place(length, type)
+    self.display_board unless $testing
+    $message unless $testing
+    position_found = false
+    orientation = nil
+    valid_orientation = false
 
-#     # ask for a position until a valid one is chosen
-#     until position_found
-#       # choose horizontal or vertical
-#       orient = ""
-#       until valid_orientation
-#         print "Do you want your #{type} [h]orizontal or [v]ertical? "
-#         orient = Input.get_orientation
-#         if (orient == "h")
-#           orientation = 1
-#           valid_orientation = true
-#         elsif (orient == "v")
-#           orientation = 0
-#           valid_orientation = true
-#         else
-#           puts "Please, either 'h' or 'v'."
-#         end
-#       end
-#       # solicit valid x and y from player
-#       x, y = get_valid_coords(type)
-#       # test legality of proposed placement points within board array
-#       x, y, position_found = test_legality_of_x_and_y(x,y,length,type,orientation,position_found)
-#     end
+    # ask for a position until a valid one is chosen
+    until position_found
+      # choose horizontal or vertical
+      orient = ""
+      until valid_orientation
+        print "Do you want your #{type} [h]orizontal or [v]ertical? "
+        orient = Input.get_orientation
+        if (orient == "h")
+          orientation = 1
+          valid_orientation = true
+        elsif (orient == "v")
+          orientation = 0
+          valid_orientation = true
+        else
+          puts "Please, either 'h' or 'v'."
+        end
+      end
+      # solicit valid x and y from player
+      x, y = get_valid_coords(type)
+      # test legality of proposed placement points within board array
+      x, y, position_found = test_legality_of_x_and_y(x,y,length,type,orientation,position_found)
+    end
 
-#     # save ship
-#     case type
-#       when "battleship"
-#         then @battleship = Ship.new(type: type, length: length, x: x, y: y, orientation: orientation)
-#       when "warship"
-#         then @warship = Ship.new(type: type, length: length, x: x, y: y, orientation: orientation)
-#     end
+    # save ship
+    case type
+      when "battleship"
+        then @battleship = Ship.new(type: type, length: length, x: x, y: y, orientation: orientation)
+      when "warship"
+        then @warship = Ship.new(type: type, length: length, x: x, y: y, orientation: orientation)
+    end
 
-#     # write to board
-#     write_ship_to_board(type: type, length: length, x: x, y: y, orientation: orientation)
-#     show_player_view_of_player
-#   end
+    # write to board
+    write_ship_to_board(type: type, length: length, x: x, y: y, orientation: orientation)
+    show_player_view_of_player
+  end
+end
 
-#   # def generate_random_coords
-#   #   random_coords_found = false
-#   #     x = 0
-#   #     y = 0
-#   #   until random_coords_found == true
-#   #     x = rand(10)
-#   #     y = rand(10)
-#   #     random_coords_found = true if player_view[y][x] == "."
-#   #   end
-#   #   return x, y
-#   # end
+class PlayerBoard < Board
+  def initialize (pc)
+    super
+    self.pc = "player" # is there a way to avoid this??
+    puts "Let's set up your board!\n\n"
+    place(4, "battleship")
+    place(3, "warship")
+  end
 
-#   # pretty-prints a table of the point values
-#   def print_value_table(points_hash)
-#     5.times do |y|
-#       5.times do |x|
-#         print format("%3i ",points_hash[[y,x]])
-#       end
-#       print "\n"
-#     end
-#   end
+  def test_legality_of_x_and_y(x, y, length, type, orientation, position_found)
+    if orientation == 0 # horizontal
+      pass = true
+      # iterate "length" times, checking each position as you go
+      length.times do |n|
+        begin # wrap to catch off-board exceptions
+          # check if position already occupied
+          unless self.board[y+n][x] == "."
+            pass = false
+            puts "That position is invalid."
+          end
+        rescue NoMethodError
+          pass = false
+          puts "Error. That position is invalid."
+          break
+        end
+        break unless pass
+      end
+      if pass == true
+        position_found = true
+      end
+    else # vertical
+      pass = true
+      # iterate "length" times, checking each position as you go
+      length.times do |n|
+        begin # wrap to catch off-board exceptions
+          # check if position already occupied
+          unless self.board[y][x+n] == "."
+            pass = false
+            puts "That position is invalid."
+          end
+        rescue NoMethodError
+          pass = false
+          puts "That position is invalid."
+          break
+        end
+        break unless pass
+      end
+      if pass == true
+        position_found = true
+      end
+    end
+    return x, y, position_found
+  end
 
-#   # def pick_random_from_top_half_of_points_hash(points_hash)
-#   #   over_zero = points_hash.values.partition {|n| n > 0}
-#   #   top_half = over_zero[0].sort.each_slice(over_zero.length/2).to_a
-#   #   lucky_winner = top_half.sample(1) #randomly chooses from top half!
-#   #   return points_hash.key(lucky_winner[0][0])
-#   # end
-
-# #   def determine_computer_coords
-# #     # 50% of the time, the computer guesses randomly.
-# #     # 50% of the time, it uses a clever algorithm.
-# #     # Except when any space is scored > 40.
-# #     # toggle random guessing...
-# #     $random == false ? $random = true : $random = false
-# #     # ...except when sinking a ship
-# #     $random = false if points_hash.values.max > 40
-
-# #     # Guess randomly, among the top half of the points_hash
-# #     if $random == true
-# #       x, y = pick_random_from_top_half_of_points_hash(points_hash)
-# #       return x, y
-# #     else # Use clever algorithm
-# #       self.points_hash, x, y = better_algorithm(player_view, points_hash)
-# #       print_value_table(points_hash)
-# #       # puts "x, y = #{x}, #{y}, value = #{points_hash[[y,x]]}" # FOR TESTING
-# #       return x, y
-# #     end
-
-# # =begin COMMENTING OUT BAD OLD ALGORITHM
-# #     index = [] # Will be coords of '#'
-# #     # looks systematically through each spot for '#'
-# #     coords_found = false
-# #     x, y = 0, 0
-# #     player_view.each do |row|
-# #       row.each do |item|
-# #         # IMPORTANT: uses AITestSuite!
-# #         # note, continues testing new indexes unless coords_found == true
-# #         x, y, coords_found = test_index(x,y)
-# #         break if coords_found == true
-# #         x += 1
-# #       end
-# #       break if coords_found == true
-# #       x = 0
-# #       y += 1
-# # =end
-# #     end # of determine_computer_coords
-
-# end
-
-# class PlayerBoard < Board
-#   def initialize (pc)
-#     super
-#     self.pc = "player" # is there a way to avoid this??
-#     puts "Let's set up your board!\n\n"
-#     place(4, "battleship")
-#     place(3, "warship")
-
-#   end
-
-#   def test_legality_of_x_and_y(x, y, length, type, orientation, position_found)
-#     if orientation == 0 # horizontal
-#       pass = true
-#       # iterate "length" times, checking each position as you go
-#       length.times do |n|
-#         begin # wrap to catch off-board exceptions
-#           # check if position already occupied
-#           unless self.board[y+n][x] == "."
-#             pass = false
-#             puts "That position is invalid."
-#           end
-#         rescue NoMethodError
-#           pass = false
-#           puts "Error. That position is invalid."
-#           break
-#         end
-#         break unless pass
-#       end
-#       if pass == true
-#         position_found = true
-#       end
-#     else # vertical
-#       pass = true
-#       # iterate "length" times, checking each position as you go
-#       length.times do |n|
-#         begin # wrap to catch off-board exceptions
-#           # check if position already occupied
-#           unless self.board[y][x+n] == "."
-#             pass = false
-#             puts "That position is invalid."
-#           end
-#         rescue NoMethodError
-#           pass = false
-#           puts "That position is invalid."
-#           break
-#         end
-#         break unless pass
-#       end
-#       if pass == true
-#         position_found = true
-#       end
-#     end
-#     return x, y, position_found
-#   end
-
-#   def place(length, type)
-#     self.display_board unless $testing
-#     message unless $testing
-#     position_found = false
-#     orientation = nil
-#     valid_orientation = false
+  def place(length, type)
+    self.display_board unless $testing
+    $message unless $testing
+    position_found = false
+    orientation = nil
+    valid_orientation = false
 
 
-#     # ask for a position until a valid one is chosen
-#     until position_found
-#       # choose horizontal or vertical
-#       orient = ""
-#       until valid_orientation
-#         print "Do you want your #{type} [h]orizontal or [v]ertical? "
-#         orient = Input.get_orientation
-#         if (orient == "h")
-#           orientation = 1
-#           valid_orientation = true
-#         elsif (orient == "v")
-#           orientation = 0
-#           valid_orientation = true
-#         else
-#           puts "Please, either 'h' or 'v'."
-#         end
-#       end
-#       # solicit valid x and y from player
-#       x, y = get_valid_coords(type)
-#       # test legality of proposed placement points within board array
-#       x, y, position_found = test_legality_of_x_and_y(x,y,length,type,orientation,position_found)
-#     end
+    # ask for a position until a valid one is chosen
+    until position_found
+      # choose horizontal or vertical
+      orient = ""
+      until valid_orientation
+        print "Do you want your #{type} [h]orizontal or [v]ertical? "
+        orient = Input.get_orientation
+        if (orient == "h")
+          orientation = 1
+          valid_orientation = true
+        elsif (orient == "v")
+          orientation = 0
+          valid_orientation = true
+        else
+          puts "Please, either 'h' or 'v'."
+        end
+      end
+      # solicit valid x and y from player
+      x, y = get_valid_coords(type)
+      # test legality of proposed placement points within board array
+      x, y, position_found = test_legality_of_x_and_y(x,y,length,type,orientation,position_found)
+    end
 
 
-#     # save ship
-#     case type
-#       when "battleship"
-#         then @battleship = Ship.new(type: type, length: length, x: x, y: y, orientation: orientation)
-#       when "warship"
-#         then @warship = Ship.new(type: type, length: length, x: x, y: y, orientation: orientation)
-#     end
+    # save ship
+    case type
+      when "battleship"
+        then @battleship = Ship.new(type: type, length: length, x: x, y: y, orientation: orientation)
+      when "warship"
+        then @warship = Ship.new(type: type, length: length, x: x, y: y, orientation: orientation)
+    end
 
-#     # write to board
-#     write_ship_to_board(type: type, length: length, x: x, y: y, orientation: orientation)
-#     show_player_view_of_player
-#   end
+    # write to board
+    write_ship_to_board(type: type, length: length, x: x, y: y, orientation: orientation)
+    show_player_view_of_player
+  end
+end
 
-
-
-#   # pretty-prints a table of the point values
-#   def print_value_table(points_hash)
-#     5.times do |y|
-#       5.times do |x|
-#         print format("%3i ",points_hash[[y,x]])
-#       end
-#       print "\n"
-#     end
-#   end
-
-# #   def pick_random_from_top_half_of_points_hash(points_hash)
-# #     over_zero = points_hash.values.partition {|n| n > 0}
-# #     top_half = over_zero[0].sort.each_slice(over_zero.length/2).to_a
-# #     lucky_winner = top_half.sample(1) #randomly chooses from top half!
-# #     return points_hash.key(lucky_winner[0][0])
-# #   end
-
-# #   def determine_computer_coords
-# #     # 50% of the time, the computer guesses randomly.
-# #     # 50% of the time, it uses a clever algorithm.
-# #     # Except when any space is scored > 40.
-# #     # toggle random guessing...
-# #     $random == false ? $random = true : $random = false
-# #     # ...except when sinking a ship
-# #     $random = false if points_hash.values.max > 40
-
-# #     # Guess randomly, among the top half of the points_hash
-# #     if $random == true
-# #       x, y = pick_random_from_top_half_of_points_hash(points_hash)
-# #       return x, y
-# #     else # Use clever algorithm
-# #       self.points_hash, x, y = better_algorithm(player_view, points_hash)
-# #       print_value_table(points_hash)
-# #       # puts "x, y = #{x}, #{y}, value = #{points_hash[[y,x]]}" # FOR TESTING
-# #       return x, y
-# #     end
-
-# # =begin COMMENTING OUT BAD OLD ALGORITHM
-# #     index = [] # Will be coords of '#'
-# #     # looks systematically through each spot for '#'
-# #     coords_found = false
-# #     x, y = 0, 0
-# #     player_view.each do |row|
-# #       row.each do |item|
-# #         # IMPORTANT: uses AITestSuite!
-# #         # note, continues testing new indexes unless coords_found == true
-# #         x, y, coords_found = test_index(x,y)
-# #         break if coords_found == true
-# #         x += 1
-# #       end
-# #       break if coords_found == true
-# #       x = 0
-# #       y += 1
-# # =end
-# #     end # of determine_computer_coords
-
-# end
-
-# class Input
-#   def self.get_coordinates
-#     gets.chomp
-#   end
-#   def self.get_orientation
-#     gets.chomp
-#   end
-# end
+class Input
+  def self.get_coordinates
+    gets.chomp
+  end
+  def self.get_orientation
+    gets.chomp
+  end
+end

@@ -3,11 +3,11 @@
 
 require "./models/board.rb"
 require "./models/ship.rb"
-require "./models/player_board"
-require "./models/player2_board"
-require "./models/input"
+# require "./models/player_board"
+# require "./models/player2_board"
+# require "./models/input"
 
-# This is called just after displaying a board, so that messages appear
+# This is called just after displaying a board, so that $messages appear
 # below the board instead of above them.
 def message
   puts $message
@@ -15,7 +15,7 @@ def message
 end
 
 def setup_game
-  $setup = true # turns off an irrelevant message
+  setup = true # turns off an irrelevant $message
   system ("cls")
   puts "######################"
   puts "Welcome to Battleship!"
@@ -44,7 +44,7 @@ def setup_game
   puts "|"
   puts "|"
   puts "|"
-  message
+  $message
   $setup = false
   return player2_board, player_board
 end
