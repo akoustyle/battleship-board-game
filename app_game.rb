@@ -15,7 +15,7 @@ def message
 end
 
 def setup_game
-  setup = true # turns off an irrelevant $message
+  $setup = true # turns off an irrelevant $message
   system ("cls")
   puts "######################"
   puts "Welcome to Battleship!"
