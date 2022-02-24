@@ -1,5 +1,5 @@
-require 'rspec'
-require 'ship'
+require_relative '../ship'
+
 
 class ShipTest
 

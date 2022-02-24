@@ -1,5 +1,6 @@
-require 'rspec'
-require 'board'
+
+require_relative '../board'
+
 
 class BoardTest
   describe Board do
