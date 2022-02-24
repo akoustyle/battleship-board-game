@@ -99,7 +99,7 @@ class Board
 
   def show_player_view
     self.player_view ||= generate_blank_board
-    display_board("#{self.pc}")
+    display_board("player")
     message
   end
 
@@ -166,12 +166,12 @@ class Board
     end
   end
 
-  # def compu_coords_to_human_coords (x,y)
-  #   # puts "x = #{x}, y = #{y}" # FOR TESTING
-  #   x = "abcde"[x]
-  #   y += 1
-  #   return x, y
-  # end
+  def compu_coords_to_human_coords (x,y)
+    # puts "x = #{x}, y = #{y}" # FOR TESTING
+    x = "abcde"[x]
+    y += 1
+    return x, y
+  end
 
   def determine_damage (x, y)
     ship_type = board[y][x]
@@ -448,8 +448,8 @@ class PlayerBoard < Board
   end
 
   def place(length, type)
-    self.display_board
-    message
+    self.display_board unless $testing
+    message unless $testing
     position_found = false
     orientation = nil
     valid_orientation = false

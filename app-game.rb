@@ -3,6 +3,9 @@
 
 require "./lib/board.rb"
 require "./lib/ship.rb"
+# require "./lib/player_board"
+# require "./lib/player2_board"
+# require "./lib/input"
 
 # This is called just after displaying a board, so that messages appear
 # below the board instead of above them.
@@ -53,7 +56,7 @@ def flip_to_see_who_goes_first
 end
 
 def player_turn (player2_board, player_board)
-    puts "|"
+  puts "|"
   puts "|"
   puts "|"
   puts "|"
@@ -122,27 +125,6 @@ def player2_turn (player2_board, player_board)
   gets
 end
 
-
-
-# def player2_turn (player2_board, player_board)
-#   $message << "The enemy attacks! "
-#   hit = true # to get into the while loop
-#   # continue as long as player is hitting
-#   while hit == true
-#     hit = false # hasn't hit yet
-#     valid_coords = false
-#     until valid_coords
-#       x, y = player_board.determine_player2_coords
-#       # determine_damage returns 'false' if already attacked coords
-#       hit, valid_coords = player_board.determine_damage(x, y)
-#       # show player his own board, with new damage done
-#       player_board.show_player_view_of_player
-#       return if $winner
-#       print "Enter to continue..."
-#       gets
-#     end
-#   end
-# end
 
 def play_game
   player2_board, player_board = setup_game
