@@ -1,9 +1,9 @@
 class Ship
-  attr_accessor :type, :char, :length, :x, :y, :orientation, :points
+  attr_accessor :type, :name, :length, :x, :y, :orientation, :points
 
   def initialize (options)
     self.type = options[:type]
-    self.char = options[:type][0].upcase
+    self.name = options[:type][0].upcase
     self.length = options[:length]
     self.x = options[:x]
     self.y = options[:y]

@@ -1,8 +1,7 @@
 class Board
-  # my first mixin!
-  attr_accessor :pc, :board, :carrier, :battleship, :warship, :submarine, :destroyer, :player_view, :points_hash
+  attr_accessor :pc, :board, :battleship, :warship, :player_view, :points_hash
 
-  # generates blank board and populates it with five pieces
+  # generates blank board
   def initialize (pc)
     @pc = pc
     @board = generate_blank_board
@@ -21,20 +20,20 @@ class Board
   end
 
   def write_ship_to_board(options)
-    char = options[:type][0].upcase
+    name = options[:type][0].upcase
     length = options[:length]
     x = options[:x]
     y = options[:y]
     orientation = options[:orientation]
     if orientation == 1 # horizontal
-      # iterate "length" times, placing char as you go
+      # iterate "length" times, placing name as you go
       length.times do |n|
-        self.board[y][x+n] = char
+        self.board[y][x+n] = name
       end
     else # vertical
-      # iterate "length" times, placing char as you go
+      # iterate "length" times, placing name as you go
       length.times do |n|
-        self.board[y+n][x] = char
+        self.board[y+n][x] = name
       end
     end
   end
@@ -45,7 +44,7 @@ class Board
       puts "ENEMY ZONE"
     else
       puts "========="
-      puts "YOUR ZONE"
+      puts "#{self.pc.upcase} ZONE"
     end
     puts "      a   b   c   d   e   ", "\n"
     n = 0
@@ -75,7 +74,7 @@ class Board
     x = 0
     y = 0
     valid_start = false
-    $message << "You attack! " unless $setup == true
+    $message << "#{self.pc} attack! " unless $setup == true
     until valid_start
       if type[0]
         puts "Where do you want the top/left edge of your #{type[0]}? "
@@ -100,7 +99,7 @@ class Board
 
   def show_player_view
     self.player_view ||= generate_blank_board
-    display_board("player")
+    display_board("#{self.pc}")
     message
   end
 
@@ -167,12 +166,12 @@ class Board
     end
   end
 
-  def compu_coords_to_human_coords (x,y)
-    # puts "x = #{x}, y = #{y}" # FOR TESTING
-    x = "abcde"[x]
-    y += 1
-    return x, y
-  end
+  # def compu_coords_to_human_coords (x,y)
+  #   # puts "x = #{x}, y = #{y}" # FOR TESTING
+  #   x = "abcde"[x]
+  #   y += 1
+  #   return x, y
+  # end
 
   def determine_damage (x, y)
     ship_type = board[y][x]
@@ -310,23 +309,6 @@ class Player2Board < Board
     end
 #=end
 
-=begin
-    # TESTING CODE, REMOVE AFTER TESTING IS FINISHED
-    case type
-      when "carrier"
-        then x, y, position_found, orientation = 0, 0, true, 1
-      when "battleship"
-        then x, y, position_found, orientation = 0, 1, true, 1
-      when "warship"
-        then x, y, position_found, orientation = 0, 2, true, 1
-      when "submarine"
-        then x, y, position_found, orientation = 0, 3, true, 1
-      when "destroyer"
-        then x, y, position_found, orientation = 0, 4, true, 1
-    end
-    # END TESTING CODE
-=end
-
     # save ship
     case type
       when "battleship"
@@ -340,17 +322,17 @@ class Player2Board < Board
     show_player_view_of_player
   end
 
-  def generate_random_coords
-    random_coords_found = false
-      x = 0
-      y = 0
-    until random_coords_found == true
-      x = rand(10)
-      y = rand(10)
-      random_coords_found = true if player_view[y][x] == "."
-    end
-    return x, y
-  end
+  # def generate_random_coords
+  #   random_coords_found = false
+  #     x = 0
+  #     y = 0
+  #   until random_coords_found == true
+  #     x = rand(10)
+  #     y = rand(10)
+  #     random_coords_found = true if player_view[y][x] == "."
+  #   end
+  #   return x, y
+  # end
 
   # pretty-prints a table of the point values
   def print_value_table(points_hash)
@@ -362,51 +344,51 @@ class Player2Board < Board
     end
   end
 
-  def pick_random_from_top_half_of_points_hash(points_hash)
-    over_zero = points_hash.values.partition {|n| n > 0}
-    top_half = over_zero[0].sort.each_slice(over_zero.length/2).to_a
-    lucky_winner = top_half.sample(1) #randomly chooses from top half!
-    return points_hash.key(lucky_winner[0][0])
-  end
+  # def pick_random_from_top_half_of_points_hash(points_hash)
+  #   over_zero = points_hash.values.partition {|n| n > 0}
+  #   top_half = over_zero[0].sort.each_slice(over_zero.length/2).to_a
+  #   lucky_winner = top_half.sample(1) #randomly chooses from top half!
+  #   return points_hash.key(lucky_winner[0][0])
+  # end
 
-  def determine_computer_coords
-    # 50% of the time, the computer guesses randomly.
-    # 50% of the time, it uses a clever algorithm.
-    # Except when any space is scored > 40.
-    # toggle random guessing...
-    $random == false ? $random = true : $random = false
-    # ...except when sinking a ship
-    $random = false if points_hash.values.max > 40
+#   def determine_computer_coords
+#     # 50% of the time, the computer guesses randomly.
+#     # 50% of the time, it uses a clever algorithm.
+#     # Except when any space is scored > 40.
+#     # toggle random guessing...
+#     $random == false ? $random = true : $random = false
+#     # ...except when sinking a ship
+#     $random = false if points_hash.values.max > 40
 
-    # Guess randomly, among the top half of the points_hash
-    if $random == true
-      x, y = pick_random_from_top_half_of_points_hash(points_hash)
-      return x, y
-    else # Use clever algorithm
-      self.points_hash, x, y = better_algorithm(player_view, points_hash)
-      print_value_table(points_hash)
-      # puts "x, y = #{x}, #{y}, value = #{points_hash[[y,x]]}" # FOR TESTING
-      return x, y
-    end
+#     # Guess randomly, among the top half of the points_hash
+#     if $random == true
+#       x, y = pick_random_from_top_half_of_points_hash(points_hash)
+#       return x, y
+#     else # Use clever algorithm
+#       self.points_hash, x, y = better_algorithm(player_view, points_hash)
+#       print_value_table(points_hash)
+#       # puts "x, y = #{x}, #{y}, value = #{points_hash[[y,x]]}" # FOR TESTING
+#       return x, y
+#     end
 
-=begin COMMENTING OUT BAD OLD ALGORITHM
-    index = [] # Will be coords of '#'
-    # looks systematically through each spot for '#'
-    coords_found = false
-    x, y = 0, 0
-    player_view.each do |row|
-      row.each do |item|
-        # IMPORTANT: uses AITestSuite!
-        # note, continues testing new indexes unless coords_found == true
-        x, y, coords_found = test_index(x,y)
-        break if coords_found == true
-        x += 1
-      end
-      break if coords_found == true
-      x = 0
-      y += 1
-=end
-    end # of determine_computer_coords
+# =begin COMMENTING OUT BAD OLD ALGORITHM
+#     index = [] # Will be coords of '#'
+#     # looks systematically through each spot for '#'
+#     coords_found = false
+#     x, y = 0, 0
+#     player_view.each do |row|
+#       row.each do |item|
+#         # IMPORTANT: uses AITestSuite!
+#         # note, continues testing new indexes unless coords_found == true
+#         x, y, coords_found = test_index(x,y)
+#         break if coords_found == true
+#         x += 1
+#       end
+#       break if coords_found == true
+#       x = 0
+#       y += 1
+# =end
+#     end # of determine_computer_coords
 
 end
 
@@ -466,13 +448,13 @@ class PlayerBoard < Board
   end
 
   def place(length, type)
-    self.display_board unless $testing
-    message unless $testing
+    self.display_board
+    message
     position_found = false
     orientation = nil
     valid_orientation = false
 
-#=begin UN-COMMENT OUT AFTER TESTING
+
     # ask for a position until a valid one is chosen
     until position_found
       # choose horizontal or vertical
@@ -495,24 +477,7 @@ class PlayerBoard < Board
       # test legality of proposed placement points within board array
       x, y, position_found = test_legality_of_x_and_y(x,y,length,type,orientation,position_found)
     end
-#=end
 
-=begin
-    # TESTING CODE, REMOVE AFTER TESTING IS FINISHED
-    case type
-      when "carrier"
-        then x, y, position_found, orientation = 0, 0, true, 1
-      when "battleship"
-        then x, y, position_found, orientation = 0, 1, true, 1
-      when "warship"
-        then x, y, position_found, orientation = 0, 2, true, 1
-      when "submarine"
-        then x, y, position_found, orientation = 0, 3, true, 1
-      when "destroyer"
-        then x, y, position_found, orientation = 0, 4, true, 1
-    end
-    # END TESTING CODE
-=end
 
     # save ship
     case type
@@ -527,17 +492,7 @@ class PlayerBoard < Board
     show_player_view_of_player
   end
 
-  def generate_random_coords
-    random_coords_found = false
-      x = 0
-      y = 0
-    until random_coords_found == true
-      x = rand(10)
-      y = rand(10)
-      random_coords_found = true if player_view[y][x] == "."
-    end
-    return x, y
-  end
+
 
   # pretty-prints a table of the point values
   def print_value_table(points_hash)
@@ -549,51 +504,51 @@ class PlayerBoard < Board
     end
   end
 
-  def pick_random_from_top_half_of_points_hash(points_hash)
-    over_zero = points_hash.values.partition {|n| n > 0}
-    top_half = over_zero[0].sort.each_slice(over_zero.length/2).to_a
-    lucky_winner = top_half.sample(1) #randomly chooses from top half!
-    return points_hash.key(lucky_winner[0][0])
-  end
+#   def pick_random_from_top_half_of_points_hash(points_hash)
+#     over_zero = points_hash.values.partition {|n| n > 0}
+#     top_half = over_zero[0].sort.each_slice(over_zero.length/2).to_a
+#     lucky_winner = top_half.sample(1) #randomly chooses from top half!
+#     return points_hash.key(lucky_winner[0][0])
+#   end
 
-  def determine_computer_coords
-    # 50% of the time, the computer guesses randomly.
-    # 50% of the time, it uses a clever algorithm.
-    # Except when any space is scored > 40.
-    # toggle random guessing...
-    $random == false ? $random = true : $random = false
-    # ...except when sinking a ship
-    $random = false if points_hash.values.max > 40
+#   def determine_computer_coords
+#     # 50% of the time, the computer guesses randomly.
+#     # 50% of the time, it uses a clever algorithm.
+#     # Except when any space is scored > 40.
+#     # toggle random guessing...
+#     $random == false ? $random = true : $random = false
+#     # ...except when sinking a ship
+#     $random = false if points_hash.values.max > 40
 
-    # Guess randomly, among the top half of the points_hash
-    if $random == true
-      x, y = pick_random_from_top_half_of_points_hash(points_hash)
-      return x, y
-    else # Use clever algorithm
-      self.points_hash, x, y = better_algorithm(player_view, points_hash)
-      print_value_table(points_hash)
-      # puts "x, y = #{x}, #{y}, value = #{points_hash[[y,x]]}" # FOR TESTING
-      return x, y
-    end
+#     # Guess randomly, among the top half of the points_hash
+#     if $random == true
+#       x, y = pick_random_from_top_half_of_points_hash(points_hash)
+#       return x, y
+#     else # Use clever algorithm
+#       self.points_hash, x, y = better_algorithm(player_view, points_hash)
+#       print_value_table(points_hash)
+#       # puts "x, y = #{x}, #{y}, value = #{points_hash[[y,x]]}" # FOR TESTING
+#       return x, y
+#     end
 
-=begin COMMENTING OUT BAD OLD ALGORITHM
-    index = [] # Will be coords of '#'
-    # looks systematically through each spot for '#'
-    coords_found = false
-    x, y = 0, 0
-    player_view.each do |row|
-      row.each do |item|
-        # IMPORTANT: uses AITestSuite!
-        # note, continues testing new indexes unless coords_found == true
-        x, y, coords_found = test_index(x,y)
-        break if coords_found == true
-        x += 1
-      end
-      break if coords_found == true
-      x = 0
-      y += 1
-=end
-    end # of determine_computer_coords
+# =begin COMMENTING OUT BAD OLD ALGORITHM
+#     index = [] # Will be coords of '#'
+#     # looks systematically through each spot for '#'
+#     coords_found = false
+#     x, y = 0, 0
+#     player_view.each do |row|
+#       row.each do |item|
+#         # IMPORTANT: uses AITestSuite!
+#         # note, continues testing new indexes unless coords_found == true
+#         x, y, coords_found = test_index(x,y)
+#         break if coords_found == true
+#         x += 1
+#       end
+#       break if coords_found == true
+#       x = 0
+#       y += 1
+# =end
+#     end # of determine_computer_coords
 
 end
 
