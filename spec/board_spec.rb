@@ -1,5 +1,5 @@
 
-require_relative '../board'
+require_relative '../models/board'
 
 
 RSpec.describe 'Board' do

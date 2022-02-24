@@ -1,11 +1,11 @@
 # require "./test_index.rb" # to include AITestSuite module, for AI functions
 # require "./better_algorithm.rb" # a better way to choose what to attack next
 
-require "./lib/board.rb"
-require "./lib/ship.rb"
-require "./lib/player_board"
-require "./lib/player2_board"
-require "./lib/input"
+require "./models/board.rb"
+require "./models/ship.rb"
+require "./models/player_board"
+require "./models/player2_board"
+require "./models/input"
 
 # This is called just after displaying a board, so that messages appear
 # below the board instead of above them.

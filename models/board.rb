@@ -74,7 +74,7 @@ class Board
     x = 0
     y = 0
     valid_start = false
-    $message << "#{self.pc} attack! " unless $setup == true
+    message << "#{self.pc} attack! " unless setup == true
     until valid_start
       if type[0]
         puts "Where do you want the top/left edge of your #{type[0]}? "
@@ -123,13 +123,13 @@ class Board
   def report_if_sunk(ship_type)
     case ship_type
     when 'B'
-      then $message << "Battleship sunk! " if self.battleship.points.values.all? {|x| x == '#'}
+      then message << "Battleship sunk! " if self.battleship.points.values.all? {|x| x == '#'}
       return true if self.battleship.points.values.all? {|x| x == '#'}
     when 'W'
-      then $message << "Warship sunk! " if self.warship.points.values.all? {|x| x == '#'}
+      then message << "Warship sunk! " if self.warship.points.values.all? {|x| x == '#'}
       return true if self.warship.points.values.all? {|x| x == '#'}
     end
-    $message << "Not sunk yet. "
+    message << "Not sunk yet. "
     return false
   end
 
@@ -160,9 +160,9 @@ class Board
       when "player2"
         then $winner = "player"
       end
-      $message << "We have a winner! "
+      message << "We have a winner! "
     else
-      $message << "No winner yet. "
+      message << "No winner yet. "
     end
   end
 
@@ -177,15 +177,15 @@ class Board
     ship_type = board[y][x]
     hit = false
     x_human, y_human = compu_coords_to_human_coords(x,y)
-    $message << "Trying #{x_human}#{y_human}. "
+    message << "Trying #{x_human}#{y_human}. "
     # edit player_view based on hit/miss
     case board[y][x]
       when '.'
-        then $message << "\nMISS! "
+        then message << "\nMISS! "
         player_view[y][x] = 'x'
         board[y][x] = 'x'
       when 'B', 'W'
-        then $message << "\nHIT! "
+        then message << "\nHIT! "
         hit = true
         player_view[y][x] = '#'
         # This overwrites the board but ship coords are in ship object
@@ -199,7 +199,7 @@ class Board
         change_to_letters(ship_type) if sunk == true
         determine_if_game_over if sunk == true
       else
-        $message << "Invalid coordinates: #{x_human}#{y_human}. "
+        message << "Invalid coordinates: #{x_human}#{y_human}. "
         show_player_view
         return hit, false # ship not sunk, and coordinates were bad
     end

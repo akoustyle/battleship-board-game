@@ -1,9 +1,9 @@
 require "./app-game.rb"
 
-$winner = nil # tells parser who the winner is; nil = game not over
-$testing = false # not used at present
-$message = '' # stuff that is saved to be displayed to the user after the board
-$random = true # half the time, the computer guesses randomly
+winner = nil # tells parser who the winner is; nil = game not over
+testing = false # not used at present
+message = '' # stuff that is saved to be displayed to the user after the board
+random = true # half the time, the computer guesses randomly
 
 # enclosing loop
 game_on = true
