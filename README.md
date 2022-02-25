@@ -1,16 +1,16 @@
 # How to play
-Each player have a 5x5 grid, a battleship(4x1) and a warship(3x1), to start the game you will need to go:
+Each player have 5x5 grid, a battleship(4x1) and a warship(3x1), to start the game you will need to go:
 
 In your teminal and tap this command
 ```bash
-ruby -v
+ruby battleship.rb
 ```
 
 # Setup
 Make sure Ruby is installed on your system.
 Run  from the command line.
 ```bash
-battleship.rb
+ruby -v
 ```
 
 Run the program and follow the on-screen prompts.
