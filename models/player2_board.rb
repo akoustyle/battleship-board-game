@@ -100,7 +100,6 @@ class Player2Board < Board
       # test legality of proposed placement points within board array
       x, y, position_found = test_legality_of_x_and_y(x,y,length,type,orientation,position_found)
     end
-#=end
 
     # save ship
     case type
@@ -114,15 +113,5 @@ class Player2Board < Board
     write_ship_to_board(type: type, length: length, x: x, y: y, orientation: orientation)
     show_player_view_of_player
   end
-
-  # pretty-prints a table of the point values
-  # def print_value_table(points_hash)
-  #   5.times do |y|
-  #     5.times do |x|
-  #       print format("%3i ",points_hash[[y,x]])
-  #     end
-  #     print "\n"
-  #   end
-  # end
 
 end

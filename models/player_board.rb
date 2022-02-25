@@ -2,8 +2,6 @@ require_relative './input'
 require_relative './ship'
 require_relative './board'
 
-
-
 class PlayerBoard < Board
   def initialize (pc)
     super
@@ -65,8 +63,6 @@ class PlayerBoard < Board
     position_found = false
     orientation = nil
     valid_orientation = false
-
-
     # ask for a position until a valid one is chosen
     until position_found
       # choose horizontal or vertical
@@ -89,8 +85,6 @@ class PlayerBoard < Board
       # test legality of proposed placement points within board array
       x, y, position_found = test_legality_of_x_and_y(x,y,length,type,orientation,position_found)
     end
-
-
     # save ship
     case type
       when "battleship"
@@ -103,17 +97,4 @@ class PlayerBoard < Board
     write_ship_to_board(type: type, length: length, x: x, y: y, orientation: orientation)
     show_player_view_of_player
   end
-
-
-
-  # pretty-prints a table of the point values
-  # def print_value_table(points_hash)
-  #   5.times do |y|
-  #     5.times do |x|
-  #       print format("%3i ",points_hash[[y,x]])
-  #     end
-  #     print "\n"
-  #   end
-  # end
-
 end

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative '../models/ship'
 
 RSpec.describe 'Ship' do

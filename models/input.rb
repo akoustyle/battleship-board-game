@@ -1,4 +1,3 @@
-
 class Input
   def self.get_coordinates
     # gets.chomp
