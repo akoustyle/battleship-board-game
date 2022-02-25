@@ -84,7 +84,7 @@ class Board
       coords = Input.get_coordinates
       begin
         x = coords[0]
-        coords[0] = ''
+        coords[0] = ""
         y = coords.to_i
         valid_start = true if "abcde".include?(x) && x.length == 1 && y.between?(1,5)
       rescue ArgumentError, TypeError

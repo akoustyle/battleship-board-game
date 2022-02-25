@@ -1,4 +1,3 @@
-
 class Ship
   attr_accessor :type, :char, :length, :x, :y, :orientation, :points
 

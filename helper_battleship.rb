@@ -1,6 +1,3 @@
-# require "./test_index.rb" # to include AITestSuite module, for AI functions
-# require "./better_algorithm.rb" # a better way to choose what to attack next
-
 require "./models/board.rb"
 require "./models/ship.rb"
 require "./models/player_board"
@@ -143,5 +140,5 @@ end
 def report_and_prompt(player2_board, player_board)
   $winner == "player" ? player2_board.show_player_view_of_player :
     player_board.show_player_view
-  puts "The winner of this round is the #{$winner}!"
+  puts "The winner of this round is the #{$winner.upcase}!"
 end

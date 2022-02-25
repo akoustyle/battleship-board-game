@@ -1,4 +1,3 @@
-
 require_relative '../helper_battleship'
 
 RSpec.describe 'testing the app helper' do
