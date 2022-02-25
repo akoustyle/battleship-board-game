@@ -16,7 +16,7 @@ end
 
 def setup_game
   $setup = true # turns off an irrelevant $message
-  system ("cls")
+  system("cls")
   puts "######################"
   puts "Welcome to Battleship!"
   puts "To play, first you'll place your battleships on a 5x5 grid."
@@ -55,7 +55,7 @@ def flip_to_see_who_goes_first
   "player"
 end
 
-def player_turn (player2_board, player_board)
+def player_turn(*player2_board)
   puts "|"
   puts "|"
   puts "|"
@@ -90,7 +90,7 @@ def player_turn (player2_board, player_board)
   gets
 end
 
-def player2_turn (player2_board, player_board)
+def player2_turn(*player_board)
   puts "|"
   puts "|"
   puts "|"

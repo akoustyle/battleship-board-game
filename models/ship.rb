@@ -1,7 +1,8 @@
+
 class Ship
   attr_accessor :type, :char, :length, :x, :y, :orientation, :points
 
-  def initialize (options)
+  def initialize(options)
     @type = options[:type]
     @char = options[:type][0].upcase
     @length = options[:length]
@@ -15,13 +16,13 @@ class Ship
     # a hash of ship points, with keys = an array of coordinates
     # and values = state of that point ('.' or '#')
     @points = {}
-    if orientation == 0 # vertical
+    if orientation.nil? # vertical
       length.times do |n|
-        points[[x, y+n]] = "."
+        points[[x, y + n]] = '.'
       end
     else # horizontal
       length.times do |n|
-        points[[x+n, y]] = "."
+        points[[x + n, y]] = '.'
       end
     end
   end

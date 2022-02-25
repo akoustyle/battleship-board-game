@@ -1,33 +1,24 @@
 
 require_relative '../models/board'
 
-
 RSpec.describe 'Board' do
-
-  describe 'generate a blank board' do
-    it 'should create a blank board' do
-      blank_board = Board.new('player')
+  it 'should create a blank board' do
+    blank_board = Board.new('player')
     expect(blank_board.generate_blank_board).to be_a Array
-    end
   end
 
-  describe 'generate a player board' do
-    it 'should create a player board' do
-      player_board = Board.new('player')
+  it 'should create a player board' do
+    player_board = Board.new('player')
     expect(player_board.class).to eq(Board)
-    end
   end
 
-  describe 'generate a player 2 board' do
-    it 'should create a player 2 board' do
-      player2_board = Board.new('player2')
+  it 'should create a player 2 board' do
+    player2_board = Board.new('player2')
     expect(player2_board.class).to eq(Board)
-    end
   end
-
 end
 
-#testing
+# testing
 # RSpec.describe Board do
 #   subject(:pc) do
 #     ship1 = ship(origin: [0, 3])
