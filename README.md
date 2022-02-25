@@ -1,5 +1,5 @@
 # How to play
-Each player have 5x5 grid, a battleship(4x1) and a warship(3x1), to start the game you will need to go:
+Each player have a 5x5 grid, a battleship(4x1) and a warship(3x1), to start the game you will need to go:
 
 In your teminal and tap this command
 ```bash
