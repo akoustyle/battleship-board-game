@@ -42,7 +42,10 @@ Tap this command
 ```bash
 bundle exec rspec spec
 ```
-It will run all the spec files' test.
+It will run all the spec files' test. if it's not working try this command
+```bash
+bundle update --bundler
+```
 
 Or you can run
 ```bash
