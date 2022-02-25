@@ -3,7 +3,7 @@ Each player have a 5x5 grid, a battleship(4x1) and a warship(3x1), to start the 
 
 In your teminal and tap this command
 ```bash
-ruby battleship.rb
+ruby -v
 ```
 
 # Setup
