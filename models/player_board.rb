@@ -1,10 +1,13 @@
 require_relative './input'
 require_relative './ship'
+require_relative './board'
+
+
 
 class PlayerBoard < Board
   def initialize (pc)
     super
-    self.pc = "player" # is there a way to avoid this??
+    @pc = "player" # is there a way to avoid this??
     puts "Let's set up your board!\n\n"
     place(4, "battleship")
     place(3, "warship")
@@ -18,7 +21,7 @@ class PlayerBoard < Board
       length.times do |n|
         begin # wrap to catch off-board exceptions
           # check if position already occupied
-          unless self.board[y+n][x] == "."
+          unless @board[y+n][x] == "."
             pass = false
             puts "That position is invalid."
           end
@@ -38,7 +41,7 @@ class PlayerBoard < Board
       length.times do |n|
         begin # wrap to catch off-board exceptions
           # check if position already occupied
-          unless self.board[y][x+n] == "."
+          unless @board[y][x+n] == "."
             pass = false
             puts "That position is invalid."
           end

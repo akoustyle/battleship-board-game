@@ -1,5 +1,6 @@
 require_relative './input'
 require_relative './ship'
+require_relative './board'
 
 class Player2Board < Board
 
@@ -19,7 +20,7 @@ class Player2Board < Board
   puts "|"
     puts "Generating Player2's board."
     super
-    self.pc = "player2" # is there a way to avoid this??
+    @pc = "player2" # is there a way to avoid this??
     place(4, "battleship")
     place(3, "warship")
   end
@@ -31,7 +32,7 @@ class Player2Board < Board
       length.times do |n|
         begin # wrap to catch off-board exceptions
           # check if position already occupied
-          unless self.board[y+n][x] == "."
+          unless @board[y+n][x] == "."
             pass = false
             puts "That position is invalid."
           end
@@ -51,7 +52,7 @@ class Player2Board < Board
       length.times do |n|
         begin # wrap to catch off-board exceptions
           # check if position already occupied
-          unless self.board[y][x+n] == "."
+          unless @board[y][x+n] == "."
             pass = false
             puts "That position is invalid."
           end

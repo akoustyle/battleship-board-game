@@ -1,8 +1,8 @@
-require "./app_game.rb"
+require "./helper_battleship.rb"
 
 $winner = nil # tells parser who the winner is; nil = game not over
 $message = '' # stuff that is saved to be displayed to the user after the board
-
+$testing = false
 # enclosing loop
 game_on = true
 while game_on == true

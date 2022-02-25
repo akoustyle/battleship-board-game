@@ -3,9 +3,9 @@
 
 require "./models/board.rb"
 require "./models/ship.rb"
-# require "./models/player_board"
-# require "./models/player2_board"
-# require "./models/input"
+require "./models/player_board"
+require "./models/player2_board"
+require "./models/input"
 
 # This is called just after displaying a board, so that $messages appear
 # below the board instead of above them.
@@ -19,10 +19,10 @@ def setup_game
   system ("cls")
   puts "######################"
   puts "Welcome to Battleship!"
-  puts "To play, first you'll place your battleships on a 10x10 grid."
-  puts "Then you'll take shots (also on the grid) at the enemy's area"
+  puts "To play, first you'll place your battleships on a 5x5 grid."
+  puts "Then you'll take shots (also on the grid) at the opponent's area"
   puts "to eliminate their ships. They will be shooting at you, too!"
-  puts "Sink all the enemy's ships before yours are sunk!"
+  puts "Sink all the opponent's ships before yours are sunk!"
   puts "######################\n\n"
   player_board = PlayerBoard.new("player")
   player_board.player_view = player_board.generate_blank_board

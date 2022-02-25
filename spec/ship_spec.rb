@@ -1,12 +1,15 @@
 require_relative '../models/ship'
 
 
-class ShipTest
-
-  describe Ship do
-    it " should create a ship" do
-      ship = Ship.new(type: type, length: length, x: x, y: y, orientation: orientation)
+RSpec.describe 'Ship' do
+    it "return an instance of Ship" do
+      ship = Ship.new(type: 'type', length: 3, x: 1, y: 1, orientation: 'horizontal')
+      expect(ship.class).to eq(Ship)
     end
-  end
 
+    it 'should initialize the ships points' do
+      ship = Ship.new(type: 'type', length: 3, x: 1, y: 1, orientation: 'horizontal')
+
+    expect(ship.initialize_ship_points).to be_a Integer
+    end
 end

@@ -3,28 +3,25 @@ require_relative '../models/board'
 
 
 RSpec.describe 'Board' do
-  before do
-    @board = Board.new(option)
-  end
 
-  describe 'generate_blank_board' do
+  describe 'generate a blank board' do
     it 'should create a blank board' do
-      @blank_board = blank_board
-      return blank_board
-    expect{ blank_board }.to eq(blank_board)
+      blank_board = Board.new('player')
+    expect(blank_board.generate_blank_board).to be_a Array
     end
   end
 
-  describe 'player' do
-    it 'should initiate a player' do
-      p = Board.new
-
-    expect{p.pc}.to eq('player')
+  describe 'generate a player board' do
+    it 'should create a player board' do
+      player_board = Board.new('player')
+    expect(player_board.class).to eq(Board)
     end
-    it 'should initiate a player 2' do
-      p2 = Board.new
+  end
 
-    expect{p2.pc}.to eq('player2')
+  describe 'generate a player 2 board' do
+    it 'should create a player 2 board' do
+      player2_board = Board.new('player2')
+    expect(player2_board.class).to eq(Board)
     end
   end
 
