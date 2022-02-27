@@ -58,8 +58,8 @@ class PlayerBoard < Board
   end
 
   def place(length, type)
-    self.display_board
-    message
+    self.display_board unless $testing
+    message unless $testing
     position_found = false
     orientation = nil
     valid_orientation = false
@@ -96,5 +96,6 @@ class PlayerBoard < Board
     # write to board
     write_ship_to_board(type: type, length: length, x: x, y: y, orientation: orientation)
     show_player_view_of_player
+    puts " #{type.capitalize} placed"
   end
 end

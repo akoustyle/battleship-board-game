@@ -112,6 +112,7 @@ class Player2Board < Board
     # write to board
     write_ship_to_board(type: type, length: length, x: x, y: y, orientation: orientation)
     show_player_view_of_player
+    puts " #{type.capitalize} placed"
   end
 
 end

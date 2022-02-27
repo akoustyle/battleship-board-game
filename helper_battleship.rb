@@ -139,6 +139,6 @@ end
 
 def report_and_prompt(player2_board, player_board)
   $winner == "player" ? player2_board.show_player_view_of_player :
-    player_board.show_player_view
+    player_board.show_player_view_of_player
   puts "The winner of this round is the #{$winner.upcase}!"
 end
