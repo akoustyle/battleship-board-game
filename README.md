@@ -38,16 +38,7 @@ In order to win you need to touch all the ships of the opponent !!!
 Make sure to have the gem rspec install in your gemfile
 then
 
-Tap this command
-```bash
-bundle exec rspec spec
-```
-It will run all the spec files' test. if it's not working try this command
-```bash
-bundle update --bundler
-```
-
-Or you can run
+Tap those command
 ```bash
 rspec spec/helper_battleship_spec.rb
 ```

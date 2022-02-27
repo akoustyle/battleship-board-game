@@ -52,7 +52,7 @@ def flip_to_see_who_goes_first
   "player"
 end
 
-def player_turn(player_board, player2_board)
+def player_turn(player2_board, player_board)
   puts "|"
   puts "|"
   puts "|"
@@ -87,7 +87,7 @@ def player_turn(player_board, player2_board)
   gets
 end
 
-def player2_turn(player2_board, player_board)
+def player2_turn(palyer2_board, player_board)
   puts "|"
   puts "|"
   puts "|"
