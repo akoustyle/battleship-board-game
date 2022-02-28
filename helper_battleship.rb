@@ -13,7 +13,7 @@ end
 
 def setup_game
   $setup = true # turns off an irrelevant $message
-  # system("cls")
+  system("cls")
   puts "######################"
   puts "Welcome to Battleship!"
   puts "To play, first you'll place your battleships on a 5x5 grid."
