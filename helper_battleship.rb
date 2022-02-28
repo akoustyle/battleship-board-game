@@ -87,7 +87,7 @@ def player_turn(player2_board, player_board)
   gets
 end
 
-def player2_turn(palyer2_board, player_board)
+def player2_turn(player2_board, player_board)
   puts "|"
   puts "|"
   puts "|"
@@ -138,7 +138,7 @@ def play_game
 end
 
 def report_and_prompt(player2_board, player_board)
-  $winner == "player" ? player2_board.show_player_view_of_player :
-    player_board.show_player_view_of_player
+  $winner == "player" ? player2_board.show_player_view :
+    player_board.show_player_view
   puts "The winner of this round is the #{$winner.upcase}!"
 end
