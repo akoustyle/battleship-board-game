@@ -26,9 +26,9 @@ Run the program and follow the on-screen prompts.
 
 2️⃣ Play game
 
-**To play**, simply type in coordinates of your attacks, for example c4, if you touch the opponent ship the terminal will print a ' # ' then you can keep playing. If you don't hit a ship the terminal will print a ' x ', it would be the other player turn. To make the game more readable, there are many *"Enter to continue..."* prompts between each turn.
+**To play**, simply type in coordinates of your attacks, for example c4, if you touch the opponent ship, the terminal will print a ' # ' then you can keep playing. If you don't hit a ship the terminal will print a ' x ', it would be the other player turn. To make the game more readable, there are many *"Enter to continue..."* prompts between each turn.
 
-In order to win you need to touch all the ships of the opponent !!!
+In order to win you need to touch all ships of the opponent !!!
 
 ##Happy battle!!!
 
