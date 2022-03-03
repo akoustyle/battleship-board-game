@@ -66,15 +66,13 @@ class PlayerBoard < Board
     # ask for a position until a valid one is chosen
     until position_found
       # choose horizontal or vertical
-      orient = ""
+      orientation = ""
       until valid_orientation
         print "Do you want your #{type} [h]orizontal or [v]ertical? "
-        orient = Input.get_orientation
-        if (orient == "h")
-          orientation = 1
+        orientation = Input.get_orientation
+        if orientation == "h"
           valid_orientation = true
-        elsif (orient == "v")
-          orientation = 0
+        elsif orientation == "v"
           valid_orientation = true
         else
           puts "Please, either 'h' or 'v'."
