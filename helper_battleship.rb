@@ -53,6 +53,7 @@ def flip_to_see_who_goes_first
 end
 
 def player_turn(player2_board, player_board)
+  system ('clear')
   puts "|"
   puts "|"
   puts "|"
@@ -88,6 +89,7 @@ def player_turn(player2_board, player_board)
 end
 
 def player2_turn(player2_board, player_board)
+  system('clear')
   puts "|"
   puts "|"
   puts "|"
