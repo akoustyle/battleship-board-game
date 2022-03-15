@@ -15,11 +15,11 @@ class Ship
     # a hash of ship points, with keys = an array of coordinates
     # and values = state of that point ('.' or '#')
     @points = {}
-    if orientation == "h" # vertical
+    if orientation == 0 # vertical
       length.times do |n|
         points[[x, y + n]] = '.'
       end
-    else orientation == "v" # horizontal
+    else # horizontal
       length.times do |n|
         points[[x + n, y]] = '.'
       end

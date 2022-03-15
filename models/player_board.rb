@@ -4,6 +4,40 @@ require_relative './board'
 
 class PlayerBoard < Board
   def initialize (pc)
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
+  puts "|"
     super
     @pc = "player" # is there a way to avoid this??
     puts "Let's set up your board!\n\n"
@@ -66,13 +100,15 @@ class PlayerBoard < Board
     # ask for a position until a valid one is chosen
     until position_found
       # choose horizontal or vertical
-      orientation = ""
+      orient = ""
       until valid_orientation
         print "Do you want your #{type} [h]orizontal or [v]ertical? "
-        orientation = Input.get_orientation
-        if orientation == "h"
+        orient = Input.get_orientation
+        if (orient == "h")
+          orientation = 1
           valid_orientation = true
-        elsif orientation == "v"
+        elsif (orient == "v")
+          orientation = 0
           valid_orientation = true
         else
           puts "Please, either 'h' or 'v'."
