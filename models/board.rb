@@ -9,9 +9,9 @@ class Board
 
   def generate_blank_board
     blank_board = []
-    5.times do |y|
+    10.times do |y|
       blank_board[y] = []
-      5.times { |x| blank_board[y][x] = "." }
+      10.times { |x| blank_board[y][x] = "." }
     end
     # Note, x is horizontal, y is vertical, counting from upper left
     # Also, x are the nested array indices, y is outer indices: [y][x]
@@ -45,24 +45,24 @@ class Board
       puts "========="
       puts "#{@pc.upcase} ZONE"
     end
-    puts "      a   b   c   d   e   ", "\n"
+    puts "      a   b   c   d   e   f   g   h   i   j   ", "\n"
     n = 0
     if board[0] == "player" # use player view of computer board
       @player_view.each do |row|
-        printable = "#{n+1} " if n < 4
-        printable = "#{n+1}" if n == 4
+        printable = "#{n+1} " if n < 9
+        printable = "#{n+1}" if n == 9
         row.each {|item| printable << ("   " + item) }
-        print " #{printable}\n\n" if n < 4
-        print " #{printable}\n" if n == 4
+        print " #{printable}\n\n" if n < 9
+        print " #{printable}\n" if n == 9
         n += 1
       end
     else # use player view of player board if no arguments
       @board.each do |row|
-        printable = "#{n+1} " if n < 4
-        printable = "#{n+1}" if n == 4
+        printable = "#{n+1} " if n < 9
+        printable = "#{n+1}" if n == 9
         row.each {|item| printable << ("   " + item) }
-        print " #{printable}\n\n" if n < 4
-        print " #{printable}\n" if n == 4
+        print " #{printable}\n\n" if n < 9
+        print " #{printable}\n" if n == 9
         n += 1
       end
     end
@@ -86,14 +86,14 @@ class Board
         x = coords[0]
         coords[0] = ""
         y = coords.to_i
-        valid_start = true if "abcde".include?(x) && x.length == 1 && y.between?(1,5)
+        valid_start = true if "abcdefjhij".include?(x) && x.length == 1 && y.between?(1,10)
       rescue ArgumentError, TypeError
         puts "Format example: a1 "
         next
       end
     end
     # convert human coords into array indices
-    return "abcde".index(x), y-1
+    return "abcdefghij".index(x), y-1
   end
 
   def show_player_view
@@ -115,6 +115,8 @@ class Board
       then @battleship.points[[x,y]] = '#'
     when 'W'
       then @warship.points[[x,y]] = '#'
+    when 'S'
+      then @submarine.points[[x,y]] = '#'
     end
   end
 
@@ -127,6 +129,9 @@ class Board
     when 'W'
       then $message << "Warship sunk! " if @warship.points.values.all? {|x| x == '#'}
       return true if @warship.points.values.all? {|x| x == '#'}
+        when 'S'
+      then $message << "Submarine sunk! " if @submarine.points.values.all? {|x| x == '#'}
+      return true if @submarine.points.values.all? {|x| x == '#'}
     end
     $message << "Not sunk yet. "
     return false
@@ -144,12 +149,17 @@ class Board
         x, y = key[0], key[1]
         player_view[y][x] = 'W'
       end
+        when 'S'
+      then @submarine.points.keys.each do |key|
+        x, y = key[0], key[1]
+        player_view[y][x] = 'S'
+      end
     end
   end
 
   def determine_if_game_over
     if @battleship.points.values.all? {|x| x == '#'} &&
-      @warship.points.values.all? {|x| x == '#'}
+      @warship.points.values.all? {|x| x == '#'} && @submarine.points.values.all? {|x| x == '#'}
       # then
       $winner = @pc
       # winner is the opposite of the one whose board is being changed
@@ -167,7 +177,7 @@ class Board
 
   def compu_coords_to_human_coords (x,y)
     # puts "x = #{x}, y = #{y}" # FOR TESTING
-    x = "abcde"[x]
+    x = "abcdefghij"[x]
     y += 1
     return x, y
   end
@@ -183,7 +193,7 @@ class Board
         then $message << "\nMISS! "
         player_view[y][x] = 'x'
         board[y][x] = 'x'
-      when 'B', 'W'
+      when 'B', 'W', 'S'
         then $message << "\nHIT! "
         hit = true
         player_view[y][x] = '#'

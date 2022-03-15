@@ -58,6 +58,7 @@ class Player2Board < Board
     @pc = "player2" # is there a way to avoid this??
     place(4, "battleship")
     place(3, "warship")
+    place(2, "submarine")
   end
 
   def test_legality_of_x_and_y(x, y, length, type, orientation, position_found)
@@ -141,6 +142,8 @@ class Player2Board < Board
         then @battleship = Ship.new(type: type, length: length, x: x, y: y, orientation: orientation)
       when "warship"
         then @warship = Ship.new(type: type, length: length, x: x, y: y, orientation: orientation)
+      when "submarine"
+        then @submarine = Ship.new(type: type, length: length, x: x, y: y, orientation: orientation)
     end
 
     # write to board

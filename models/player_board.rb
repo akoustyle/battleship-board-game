@@ -43,6 +43,7 @@ class PlayerBoard < Board
     puts "Let's set up your board!\n\n"
     place(4, "battleship")
     place(3, "warship")
+    place(2, "submarine")
 
   end
 
@@ -125,6 +126,8 @@ class PlayerBoard < Board
         then @battleship = Ship.new(type: type, length: length, x: x, y: y, orientation: orientation)
       when "warship"
         then @warship = Ship.new(type: type, length: length, x: x, y: y, orientation: orientation)
+      when "submarine"
+        then @submarine = Ship.new(type: type, length: length, x: x, y: y, orientation: orientation)
     end
 
     # write to board
